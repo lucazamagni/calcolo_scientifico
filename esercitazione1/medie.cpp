@@ -4,6 +4,12 @@ using namespace std;
 
 int main(int argc, const char *argv[]) //argc=numero input; argv=vettore con gli input
 {
+
+if ( argc<2 ){
+    cerr << "Nome del file mancante\n";
+    return 1;
+}
+
 string filename = argv[1];
 
 ifstream file(filename); //legge il testo del file
