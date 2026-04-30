@@ -1,0 +1,27 @@
+Dai grafici costruiti su MATLAB a partire dai vettori dei tempi stampati in measure_sorts.cpp in versione DEBUG e RELEASE si effettuano le seguenti
+considerazioni:
+(è possibile notare i seguenti fatti anche analizzando i tempi facendo dei confronti direttamente sul codice c++)
+
+- L'insertionsort risulta essere il più veloce tra gli algoritmi quadratici O(n^2) in entrambe le versioni. In particolare in RELEASE risulta essere
+  più veloce anche degli algoritmi logaritmici.
+  Ciò è probabilmente dovuto al fatto che questo test vada fatto su un campione di vettori di dimensione più ampia in modo tale che questa differenza 
+  si noti maggiormente (per dimensioni così piccole l'andamento logaritmico rimane simile a quello quadratico)
+
+- L' std::sort è implementato su c++ come un algoritmo logaritmico, ma nonostante questo risulta avere un andamento compreso tra l'insertion sort e
+  il quicksort in entrambe le versioni. La causa di questo può essere analoga alla precedente.
+  Per il mergesort è possibile fare un discorso analogo.
+
+- Nella versione DEBUG si nota come il quicksort è asintoticamente l'algoritmo più efficiente di tutti, ma per dimensioni molto piccole (<40) il 
+  suo andamento è molto simile a quello dell'insertionsort.
+  In particolare nel grafico zoommato è possibile individuare una dimensione critica N* dove i due grafici si intersecano e dopo la quale il quicksort 
+  diventa definitivamente (a meno dei punti anomali) più veloce dell'insertionsort.
+  E' possibile trovare dal grafico che N* è circa pari a 32: prendendo questo valore si crea un algoritmo ibrido che per n<N* implementa l'insertionsort e 
+  per n>=N* il quicksort.
+
+- Le anomalie presenti nei grafici sono probabilmente dovute al fatto che i vettori siano generati in modo casuale con randfiller e l'efficienza di ogni
+  algoritmo può cambiare molto a seconda del vettore da ordinare.
+
+--> In generale per vedere la vittoria degli algoritmi logaritmici è necessario di utilizzare dimensioni nell'ordine di 10^4
+
+
+
